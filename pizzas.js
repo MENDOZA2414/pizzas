@@ -1,8 +1,10 @@
 let cantidad = 6;
+let canvas;
 
 function setup() {
-  createCanvas(900, 500);
+  canvas = createCanvas(900, 500);
   angleMode(DEGREES);
+  canvas.parent(document.body.querySelector("main")); // Centrar el canvas
   drawScene();
 }
 
@@ -16,7 +18,7 @@ function actualizar() {
 function drawScene() {
   background(245);
 
-  // Bandeja (fondo gris claro)
+  // Bandeja
   fill(220);
   noStroke();
   rect(40, 80, width - 80, 350, 20);
@@ -26,7 +28,6 @@ function drawScene() {
   dibujarPizza(450, 250, 100, cantidad, 'dda');
   dibujarPizza(750, 250, 100, cantidad, 'bresenham');
 
-  // Nombres debajo
   fill(0);
   noStroke();
   textAlign(CENTER);
@@ -38,7 +39,7 @@ function drawScene() {
 
 function dibujarPizza(cx, cy, radio, n, tipo) {
   // Base
-  fill(230, 180, 120); // masa
+  fill(230, 180, 120);
   noStroke();
   circle(cx, cy, radio * 2.1);
 
@@ -50,7 +51,7 @@ function dibujarPizza(cx, cy, radio, n, tipo) {
   fill(255, 240, 160);
   circle(cx, cy, radio * 1.6);
 
-  // Peperonis (simples)
+  // Peperonis
   fill(150, 40, 40);
   for (let i = 0; i < 6; i++) {
     let ang = random(0, 360);
