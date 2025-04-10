@@ -40,26 +40,10 @@ function drawScene() {
 function dibujarPizza(cx, cy, radio, n, tipo) {
   // Base
   fill(230, 180, 120);
-  noStroke();
-  circle(cx, cy, radio * 2.1);
+  stroke(0);
+  strokeWeight(1.5);
+  puntoMedioCirculo(cx, cy, Math.floor(radio));
 
-  // Salsa
-  fill(200, 70, 60);
-  circle(cx, cy, radio * 1.85);
-
-  // Queso
-  fill(255, 240, 160);
-  circle(cx, cy, radio * 1.6);
-
-  // Peperonis
-  fill(150, 40, 40);
-  for (let i = 0; i < 6; i++) {
-    let ang = random(0, 360);
-    let dist = random(20, radio - 15);
-    let x = cx + dist * cos(ang);
-    let y = cy + dist * sin(ang);
-    circle(x, y, 10);
-  }
 
   // Rebanadas
   stroke(50);
@@ -77,6 +61,37 @@ function dibujarPizza(cx, cy, radio, n, tipo) {
       bresenham(cx, cy, round(x), round(y));
     }
   }
+}
+
+// === Punto Medio ===
+function puntoMedioCirculo(xc, yc, r) {
+  r = Math.floor(r);
+  let x = 0;
+  let y = r;
+  let p = 5 / 4 - r;
+
+  while (x <= y) {
+    dibujarCirculo(xc, yc, x, y);
+    x++;
+
+    if (p < 0) {
+      p = p + 2 * x + 1;
+    } else {
+      y--;
+      p = p + 2 * x + 1 - 2 * y;
+    }
+  }
+}
+
+function dibujarCirculo(cx, cy, x, y) {
+  point(cx + x, cy + y);
+  point(cx - x, cy + y);
+  point(cx + x, cy - y);
+  point(cx - x, cy - y);
+  point(cx + y, cy + x);
+  point(cx - y, cy + x);
+  point(cx + y, cy - x);
+  point(cx - y, cy - x);
 }
 
 // === Punto-Pendiente ===
